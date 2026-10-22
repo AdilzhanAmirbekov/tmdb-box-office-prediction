@@ -233,13 +233,13 @@ def table_worst(k=5):
     o = pd.read_csv(OUT / "worst_over.csv").head(k)
     lines = [r"\multicolumn{5}{@{}l}{\emph{Largest under-predictions (actual $>$ predicted)}} \\"]
     for _, r in u.iterrows():
-        lines.append(f"{esc(r.title)} ({str(r.date)[:4]}) & {f(r.actual_usd_m, 3)} & {f(r.pred_usd_m, 1)} & "
-                     f"{f(r.budget_usd_m, 1)} & {f(r.log_error, 2)} \\\\")
+        lines.append(f"{esc(r.title)} ({str(r.date)[:4]}) & {f(r.actual_usd_m, 3)} & {f(r.pred_usd_m, 3)} & "
+                     f"{f(r.budget_usd_m, 3)} & {f(r.log_error, 2)} \\\\")
     lines.append(r"\midrule")
     lines.append(r"\multicolumn{5}{@{}l}{\emph{Largest over-predictions (actual $<$ predicted)}} \\")
     for _, r in o.iterrows():
-        lines.append(f"{esc(r.title)} ({str(r.date)[:4]}) & {f(r.actual_usd_m, 3)} & {f(r.pred_usd_m, 1)} & "
-                     f"{f(r.budget_usd_m, 1)} & {f(r.log_error, 2)} \\\\")
+        lines.append(f"{esc(r.title)} ({str(r.date)[:4]}) & {f(r.actual_usd_m, 3)} & {f(r.pred_usd_m, 3)} & "
+                     f"{f(r.budget_usd_m, 3)} & {f(r.log_error, 2)} \\\\")
     write("tab_worst.tex", rf"""\begin{{table}}[!t]
 \centering
 \caption{{Test Films With the Largest {BEST} Errors on the Log Scale}}
