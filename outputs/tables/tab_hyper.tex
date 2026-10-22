@@ -1,0 +1,46 @@
+\begin{table}[!t]
+\centering
+\caption{Randomized search spaces and selected hyperparameters (expanding-window CV on the development set, objective: log RMSE, seed 42). Ranges marked (log) were sampled log-uniformly; other ranges uniformly.}
+\label{tab:hyper}
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}lll@{}}
+\toprule
+Hyperparameter & Search space & Selected \\
+\midrule
+\multicolumn{3}{@{}l}{\emph{Random Forest} (30 candidates, tuning time 3.2 min)} \\
+\quad \texttt{n\_estimators} & \{200, 300, 500\} & 300 \\
+\quad \texttt{max\_depth} & \{None, 8, 12, 16, 20\} & 16 \\
+\quad \texttt{min\_samples\_split} & \{2, 5, 10, 20\} & 5 \\
+\quad \texttt{min\_samples\_leaf} & \{1, 2, 4, 8\} & 1 \\
+\quad \texttt{max\_features} & \{0.2, 0.33, 0.5, 0.7, 1.0\} & 0.50 \\
+\multicolumn{3}{@{}l}{\emph{XGBoost} (50 candidates, tuning time 3.7 min)} \\
+\quad \texttt{n\_estimators} & 200--1000 & 484 \\
+\quad \texttt{learning\_rate} & 0.01--0.2 (log) & 0.016 \\
+\quad \texttt{max\_depth} & 2--8 & 7 \\
+\quad \texttt{min\_child\_weight} & \{1, 3, 5, 10\} & 1 \\
+\quad \texttt{subsample} & 0.6--1.0 & 0.62 \\
+\quad \texttt{colsample\_bytree} & 0.5--1.0 & 0.78 \\
+\quad \texttt{reg\_lambda} & 0.1--10 (log) & 0.124 \\
+\quad \texttt{reg\_alpha} & 0.001--1 (log) & 0.002 \\
+\multicolumn{3}{@{}l}{\emph{LightGBM} (50 candidates, tuning time 1.6 min)} \\
+\quad \texttt{n\_estimators} & 200--1000 & 484 \\
+\quad \texttt{learning\_rate} & 0.01--0.2 (log) & 0.016 \\
+\quad \texttt{num\_leaves} & \{7, 15, 31, 63\} & 15 \\
+\quad \texttt{max\_depth} & \{$-$1, 4, 6, 8\} & 4 \\
+\quad \texttt{min\_child\_samples} & \{5, 10, 20, 40\} & 5 \\
+\quad \texttt{subsample} & 0.6--1.0 & 0.72 \\
+\quad \texttt{colsample\_bytree} & 0.5--1.0 & 0.78 \\
+\quad \texttt{reg\_lambda} & 0.001--10 (log) & 0.002 \\
+\quad \texttt{reg\_alpha} & 0.001--1 (log) & 0.002 \\
+\multicolumn{3}{@{}l}{\emph{CatBoost} (30 candidates, tuning time 4.4 min)} \\
+\quad \texttt{iterations} & \{300, 500, 800, 1000\} & 800 \\
+\quad \texttt{learning\_rate} & 0.02--0.2 (log) & 0.026 \\
+\quad \texttt{depth} & 4--8 & 6 \\
+\quad \texttt{l2\_leaf\_reg} & 1--10 (log) & 2.97 \\
+\quad \texttt{subsample} & 0.6--1.0 & 0.82 \\
+\quad \texttt{rsm} & 0.5--1.0 & 0.88 \\
+\quad \texttt{random\_strength} & 0.1--10 (log) & 2.67 \\
+\bottomrule
+\end{tabular}
+\end{table}

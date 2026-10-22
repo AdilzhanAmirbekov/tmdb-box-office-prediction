@@ -1,0 +1,81 @@
+[    0.0s] environment: {'python': '3.13.16', 'platform': 'Linux-6.18.44-fc-v140-x86_64-with-glibc2.39', 'cpu_model': 'Intel(R) Xeon(R) Processor @ 2.80GHz', 'n_cpu': 2, 'ram_gb_total': '7', 'numpy': '2.5.3', 'pandas': '3.0.5', 'scipy': '1.18.1', 'scikit-learn': '1.9.1', 'xgboost': '3.0.2', 'lightgbm': '4.6.0', 'catboost_cli': 'tags/v1.2.8', 'matplotlib': '3.11.2'}
+[    2.9s] data: population 3354, dev 2683, test 671, features 156
+[  192.5s] tuned Random Forest: CV log RMSE 1.361 +- 0.148 (190s) {'n_estimators': 300, 'min_samples_split': 5, 'min_samples_leaf': 1, 'max_features': 0.5, 'max_depth': 16}
+[  411.8s] tuned XGBoost: CV log RMSE 1.360 +- 0.147 (219s) {'colsample_bytree': 0.7830186052470381, 'learning_rate': 0.01608436008050044, 'max_depth': 7, 'min_child_weight': 1, 'n_estimators': 484, 'reg_alpha': 0.0022295536203910107, 'reg_lambda': 0.12359624712587383, 'subsample': 0.616291520927588}
+[  509.3s] tuned LightGBM: CV log RMSE 1.361 +- 0.147 (97s) {'colsample_bytree': 0.7830186052470381, 'learning_rate': 0.01608436008050044, 'max_depth': 4, 'min_child_samples': 5, 'n_estimators': 484, 'num_leaves': 15, 'reg_alpha': 0.001885372627016015, 'reg_lambda': 0.0023802794823635943, 'subsample': 0.7245653237565177}
+[  771.4s] tuned CatBoost: CV log RMSE 1.343 +- 0.144 (262s) {'depth': 6, 'iterations': 800, 'l2_leaf_reg': 2.9662989987000667, 'learning_rate': 0.026340513770510204, 'random_strength': 2.6698666742744606, 'rsm': 0.8803925243084487, 'subsample': 0.8245108790277985}
+[  771.4s] Naive median: smearing 2.8139, test log RMSE 2.0257, fit 0.0s
+[  771.4s] Budget-only OLS: smearing 1.9662, test log RMSE 1.5086, fit 0.0s
+[  772.2s] Linear Regression: smearing 2.7675, test log RMSE 1.4126, fit 0.1s
+[  781.0s] Random Forest: smearing 2.0120, test log RMSE 1.4369, fit 2.3s
+[  787.4s] XGBoost: smearing 2.0913, test log RMSE 1.4777, fit 1.3s
+[  788.9s] LightGBM: smearing 2.0404, test log RMSE 1.4259, fit 0.4s
+[  801.6s] CatBoost: smearing 1.9038, test log RMSE 1.4071, fit 2.5s
+[  802.6s] test metrics:
+               model  log_MAE  log_RMSE  log_R2  usd_MAE_smear  usd_RMSE_smear  usd_R2_smear  usd_MedAE_smear  cv_mean  cv_std
+0       Naive median    1.492     2.026  -0.003        148.702         243.906        -0.018          102.807    1.890   0.259
+1    Budget-only OLS    1.069     1.509   0.444         91.577         167.436         0.520           48.177    1.482   0.166
+2  Linear Regression    1.010     1.413   0.512        165.235         332.939        -0.897           64.114    1.589   0.184
+3      Random Forest    0.999     1.437   0.495        108.836         189.892         0.383           46.378    1.361   0.148
+4            XGBoost    1.023     1.478   0.466        116.379         202.843         0.296           50.100    1.360   0.147
+5           LightGBM    1.000     1.426   0.503        111.392         191.619         0.372           46.098    1.361   0.147
+6           CatBoost    0.975     1.407   0.516        108.691         186.646         0.404           48.321    1.343   0.144
+[  802.6s] best tree model on test: CatBoost; best by CV: CatBoost
+[  802.7s] paired tests:
+       best              other  d_log_RMSE  d_log_RMSE_lo  d_log_RMSE_hi  d_log_MAE  d_log_MAE_lo  d_log_MAE_hi  wilcoxon_W  wilcoxon_p  median_abs_err_diff  holm_p  holm_reject
+0  CatBoost       Naive median     -0.6186        -0.7275        -0.5051    -0.5168       -0.6067       -0.4228     60409.0      0.0000              -0.4654  0.0000         True
+1  CatBoost    Budget-only OLS     -0.1015        -0.1711        -0.0288    -0.0942       -0.1431       -0.0419     86821.0      0.0000              -0.1313  0.0000         True
+2  CatBoost  Linear Regression     -0.0055        -0.0480         0.0404    -0.0355       -0.0715        0.0014    100937.0      0.0189              -0.0474  0.0378         True
+3  CatBoost      Random Forest     -0.0298        -0.0628         0.0025    -0.0237       -0.0503        0.0038    101030.0      0.0199              -0.0254  0.0378         True
+4  CatBoost            XGBoost     -0.0705        -0.1088        -0.0347    -0.0477       -0.0766       -0.0197     98065.0      0.0035              -0.0239  0.0105         True
+5  CatBoost           LightGBM     -0.0188        -0.0405         0.0044    -0.0246       -0.0438       -0.0052     95532.0      0.0006              -0.0219  0.0025         True
+[  836.1s] seed variability:
+              log_RMSE         log_MAE          log_R2         usd_MAE_smear        
+                  mean     std    mean     std    mean     std          mean     std
+model                                                                               
+CatBoost        1.4059  0.0029  0.9780  0.0055  0.5170  0.0020      106.9175  1.6766
+LightGBM        1.4276  0.0028  0.9990  0.0020  0.5020  0.0020      110.3439  1.2380
+Random Forest   1.4395  0.0019  0.9998  0.0015  0.4937  0.0013      108.9335  0.4881
+XGBoost         1.4562  0.0142  1.0092  0.0084  0.4818  0.0101      117.2406  1.7379
+[  849.4s] ablation Full model / CatBoost: log RMSE 1.4071
+[  850.2s] ablation Full model / Linear Regression: log RMSE 1.4126
+[  863.1s] ablation Without budget / CatBoost: log RMSE 1.5025
+[  864.0s] ablation Without budget / Linear Regression: log RMSE 1.4982
+[  874.2s] ablation Without past box-office features / CatBoost: log RMSE 1.4632
+[  875.0s] ablation Without past box-office features / Linear Regression: log RMSE 1.4871
+[  893.3s] ablation A2 frequency encoding instead of past box office / CatBoost: log RMSE 1.4490
+[  894.9s] ablation A2 frequency encoding instead of past box office / Linear Regression: log RMSE 1.5370
+[  908.2s] ablation Without release timing / CatBoost: log RMSE 1.3922
+[  909.2s] ablation Without release timing / Linear Regression: log RMSE 1.4117
+[  923.9s] ablation With post-release variables (leakage demo) / CatBoost: log RMSE 1.1545
+[  924.8s] ablation With post-release variables (leakage demo) / Linear Regression: log RMSE 1.8063
+[  925.5s] IPW: {'n_selection_sample': 3785, 'n_recorded': 2683, 'share_recorded_dev_period': 0.7088507265521796, 'n_test_period_all': 1017, 'share_recorded_test_period': 0.6597836774827925, 'auc_in_sample': 0.9064777692170845, 'auc_test_period': 0.92026825633383, 'p_recorded_test_min': 0.05, 'p_recorded_test_median': 0.9388064476607502, 'weight_min': 0.6141640700288391, 'weight_max': 12.283279124897955, 'effective_sample_size': 190.35686462657316, 'n_clipped_at_0.05': 6}
+[  957.3s] 70/30 split:
+               model  log_MAE  log_RMSE  log_R2  usd_MAE_smear
+0       Naive median   1.5714    2.1384 -0.0013       142.4346
+1    Budget-only OLS   1.1062    1.5861  0.4491        85.7835
+2  Linear Regression   1.0303    1.4727  0.5251       143.4560
+3      Random Forest   0.9801    1.4395  0.5462        95.9304
+4            XGBoost   0.9839    1.4459  0.5422       103.8626
+5           LightGBM   0.9752    1.4345  0.5494        98.2413
+6           CatBoost   0.9544    1.4150  0.5615        97.8428
+[  957.3s] error analysis: {'best_model': 'CatBoost', 'share_abs_log_error_gt1': 0.36959761549925485, 'share_abs_log_error_gt1_LR': 0.3830104321907601, 'share_abs_log_error_gt2': 0.10283159463487332, 'share_abs_log_error_lt05': 0.3919523099850969, 'n_actual_below_1M': 33, 'mean_signed_error_below_1M': -3.4459550902933507, 'mean_abs_error_below_1M': 3.4830366260490035, 'mean_abs_error_at_least_1M': 0.8452608391632508, 'share_of_squared_error_from_below_1M': 0.40998010622707454, 'log_RMSE_excluding_below_1M': 1.1084414773352038, 'log_RMSE_excluding_below_1M_LR': 1.1084064919789476, 'mean_signed_error_all': 0.21912706602322887, 'median_ratio_pred_to_actual': 1.357348773290944, 'corr_error_actual': 0.6269330866937572, 'top10_actual_share_of_usd_sq_error': 0.2453228394791877}
+[  961.0s] SHAP top 15:
+                    feature  mean_abs_shap   share
+0                log_budget         0.7460  0.2941
+148   comp_prior_logrev_max         0.2361  0.0931
+147        comp_prior_n_max         0.2006  0.0791
+3              release_year         0.2006  0.0791
+2                   runtime         0.1674  0.0660
+14              genre_Drama         0.1010  0.0398
+141        dir_prior_logrev         0.0966  0.0381
+5               release_dow         0.0845  0.0333
+143      cast_prior_n_total         0.0640  0.0252
+4             release_month         0.0456  0.0180
+144  cast_prior_logrev_mean         0.0411  0.0162
+15             genre_Family         0.0386  0.0152
+149       comp_hist_missing         0.0346  0.0137
+19             genre_Horror         0.0309  0.0122
+23    genre_Science_Fiction         0.0280  0.0110
+[  961.1s] done. total 16.0 min
+total wall-clock: 968 s

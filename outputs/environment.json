@@ -1,0 +1,15 @@
+{
+  "python": "3.13.16",
+  "platform": "Linux-6.18.44-fc-v140-x86_64-with-glibc2.39",
+  "cpu_model": "Intel(R) Xeon(R) Processor @ 2.80GHz",
+  "n_cpu": 2,
+  "ram_gb_total": "7",
+  "numpy": "2.5.3",
+  "pandas": "3.0.5",
+  "scipy": "1.18.1",
+  "scikit-learn": "1.9.1",
+  "xgboost": "3.0.2",
+  "lightgbm": "4.6.0",
+  "catboost_cli": "tags/v1.2.8",
+  "matplotlib": "3.11.2"
+}

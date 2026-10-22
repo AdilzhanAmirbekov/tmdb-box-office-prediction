@@ -1,0 +1,18 @@
+{
+  "best_model": "CatBoost",
+  "share_abs_log_error_gt1": 0.36959761549925485,
+  "share_abs_log_error_gt1_LR": 0.3830104321907601,
+  "share_abs_log_error_gt2": 0.10283159463487332,
+  "share_abs_log_error_lt05": 0.3919523099850969,
+  "n_actual_below_1M": 33,
+  "mean_signed_error_below_1M": -3.4459550902933507,
+  "mean_abs_error_below_1M": 3.4830366260490035,
+  "mean_abs_error_at_least_1M": 0.8452608391632508,
+  "share_of_squared_error_from_below_1M": 0.40998010622707454,
+  "log_RMSE_excluding_below_1M": 1.1084414773352038,
+  "log_RMSE_excluding_below_1M_LR": 1.1084064919789476,
+  "mean_signed_error_all": 0.21912706602322887,
+  "median_ratio_pred_to_actual": 1.357348773290944,
+  "corr_error_actual": 0.6269330866937572,
+  "top10_actual_share_of_usd_sq_error": 0.2453228394791877
+}

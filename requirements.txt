@@ -1,0 +1,10 @@
+# Exact versions used for the reported run (Python 3.13.16)
+numpy==2.5.3
+pandas==3.0.5
+scipy==1.18.1
+scikit-learn==1.9.1
+matplotlib==3.11.2
+lightgbm==4.6.0
+xgboost==3.0.2
+# CatBoost was used through its command-line binary v1.2.8 (not the Python package);
+# see README.md, section "CatBoost".

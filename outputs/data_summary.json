@@ -1,0 +1,164 @@
+{
+  "n_movies_raw": 4803,
+  "n_credits_raw": 4803,
+  "n_joined": 4803,
+  "n_title_mismatch_after_join": 0,
+  "n_duplicate_ids_removed": 0,
+  "n_missing_release_date": 1,
+  "n_revenue_zero": 1426,
+  "n_revenue_tiny": 22,
+  "n_budget_zero_in_all_dated": 1036,
+  "n_model_population": 3354,
+  "n_budget_tiny_set_missing_in_pop": 3,
+  "n_budget_zero_in_pop": 140,
+  "n_budget_missing_in_pop": 143,
+  "n_runtime_missing_in_pop": 1,
+  "n_dev": 2683,
+  "n_test": 671,
+  "dev_date_min": "1916-09-04",
+  "dev_date_max": "2011-11-22",
+  "test_date_min": "2011-11-25",
+  "test_date_max": "2016-09-09",
+  "target_dev": {
+    "n": 2683,
+    "usd_min": 0.007202,
+    "usd_q25": 14.707115499999983,
+    "usd_median": 47.38368900000005,
+    "usd_mean": 105.77526616436823,
+    "usd_q75": 128.89474899999988,
+    "usd_max": 2787.9650870000014,
+    "log_mean": 17.40341809836716,
+    "log_sd": 1.8395358075337156,
+    "share_below_1M": 0.05143496086470369,
+    "skew_usd": 4.424164607307449
+  },
+  "target_test": {
+    "n": 671,
+    "usd_min": 0.001632,
+    "usd_q25": 22.69776799999999,
+    "usd_median": 76.58631600000002,
+    "usd_mean": 165.87601595529063,
+    "usd_q75": 195.33962099999997,
+    "usd_max": 1519.557910000001,
+    "log_mean": 17.779532768825018,
+    "log_sd": 2.0244964952897275,
+    "share_below_1M": 0.04918032786885246,
+    "skew_usd": 2.6716748954315683
+  },
+  "target_all": {
+    "n": 3354,
+    "usd_min": 0.001632,
+    "usd_q25": 15.848097500000016,
+    "usd_median": 52.298388999999965,
+    "usd_mean": 117.7989999478235,
+    "usd_q75": 140.7888337500001,
+    "usd_max": 2787.9650870000014,
+    "log_mean": 17.478663460286423,
+    "log_sd": 1.8837036576676789,
+    "share_below_1M": 0.050983899821109124,
+    "skew_usd": 3.8773489752562122
+  },
+  "budget_missing_dev": 105,
+  "budget_missing_test": 38,
+  "n_features_tree": 156,
+  "n_features_catboost": 151,
+  "vocab_sizes": {
+    "languages": 5,
+    "companies": 95,
+    "countries": 18,
+    "genres": 19,
+    "directors": 18,
+    "actors": 139
+  },
+  "languages_kept": [
+    "de",
+    "en",
+    "es",
+    "fr",
+    "ja"
+  ],
+  "countries_kept": [
+    "AU",
+    "CA",
+    "CH",
+    "CN",
+    "CZ",
+    "DE",
+    "ES",
+    "FR",
+    "GB",
+    "HK",
+    "IE",
+    "IN",
+    "IT",
+    "JP",
+    "MX",
+    "NL",
+    "NZ",
+    "US"
+  ],
+  "cv_folds": [
+    {
+      "train_n": 448,
+      "valid_n": 447,
+      "train_end": "1991-08-02",
+      "valid_start": "1991-08-10",
+      "valid_end": "1999-06-04"
+    },
+    {
+      "train_n": 895,
+      "valid_n": 447,
+      "train_end": "1999-06-04",
+      "valid_start": "1999-06-08",
+      "valid_end": "2003-02-06"
+    },
+    {
+      "train_n": 1342,
+      "valid_n": 447,
+      "train_end": "2003-02-06",
+      "valid_start": "2003-02-07",
+      "valid_end": "2006-05-18"
+    },
+    {
+      "train_n": 1789,
+      "valid_n": 447,
+      "train_end": "2006-05-18",
+      "valid_start": "2006-05-20",
+      "valid_end": "2009-04-28"
+    },
+    {
+      "train_n": 2236,
+      "valid_n": 447,
+      "train_end": "2009-04-28",
+      "valid_start": "2009-05-05",
+      "valid_end": "2011-11-22"
+    }
+  ],
+  "old_encoding": {
+    "dir_other_share": 0.9139023481177786,
+    "cast1_other_share": 0.5795751024972047,
+    "cast2_other_share": 0.7797241893402908,
+    "cast3_other_share": 0.8878121505777116,
+    "all_top3_other_share": 0.4696235557212076,
+    "dir_and_all_cast_other_share": 0.44651509504286246,
+    "n_directors_kept": 18,
+    "n_actors_kept": 139,
+    "n_distinct_directors_dev": 1259,
+    "n_distinct_top3_actors_dev": 3280
+  },
+  "history_missing_share_dev": {
+    "dir_hist_missing": 0.47185985836749905,
+    "cast_hist_missing": 0.08423406634364518,
+    "comp_hist_missing": 0.13231457323891166
+  },
+  "history_missing_share_test": {
+    "dir_hist_missing": 0.3502235469448584,
+    "cast_hist_missing": 0.028315946348733235,
+    "comp_hist_missing": 0.07749627421758569
+  },
+  "excluded_by_reason": {
+    "revenue = 0 (not recorded)": 1426,
+    "0 < revenue < 1000 USD (entry error)": 22,
+    "missing release date": 1
+  }
+}

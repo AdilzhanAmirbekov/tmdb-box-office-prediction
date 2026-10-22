@@ -1,0 +1,7 @@
+data/*.csv
+outputs/models/
+outputs/state.pkl
+outputs_quick/
+__pycache__/
+*.pyc
+catboost_info/

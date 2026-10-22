@@ -1,0 +1,94 @@
+{
+  "model": "CatBoost",
+  "base_value": 17.40462622,
+  "max_abs_reconstruction_error": 7.802192669714714e-09,
+  "local": {
+    "over": {
+      "title": "The Adventurer: The Curse of the Midas Box",
+      "date": "2013-12-05",
+      "actual_usd_m": 0.006399,
+      "pred_usd_m": 53.89492261697074,
+      "budget_usd_m": 25.0,
+      "y_log": 8.764053269347762,
+      "pred_log": 17.15867802,
+      "base_value": 17.40462622,
+      "top_contributions": [
+        {
+          "feature": "comp_prior_n_max",
+          "shap": -0.2867350862,
+          "value": 3.0
+        },
+        {
+          "feature": "release_year",
+          "shap": -0.2045261004,
+          "value": 2013.0
+        },
+        {
+          "feature": "n_companies",
+          "shap": -0.1835389587,
+          "value": 12.0
+        },
+        {
+          "feature": "log_budget",
+          "shap": 0.1765628338,
+          "value": 17.034386382832476
+        },
+        {
+          "feature": "genre_Family",
+          "shap": 0.1708579639,
+          "value": 1.0
+        },
+        {
+          "feature": "comp_prior_logrev_max",
+          "shap": 0.1506795543,
+          "value": 18.1650739628076
+        }
+      ],
+      "sum_other_features": -0.0692484001541144
+    },
+    "under": {
+      "title": "The Imitation Game",
+      "date": "2014-11-14",
+      "actual_usd_m": 233.555708,
+      "pred_usd_m": 6.092810550749807,
+      "budget_usd_m": 14.0,
+      "y_log": 19.268931189058076,
+      "pred_log": 14.97875137,
+      "base_value": 17.40462622,
+      "top_contributions": [
+        {
+          "feature": "release_year",
+          "shap": -0.718838167,
+          "value": 2014.0
+        },
+        {
+          "feature": "genre_War",
+          "shap": -0.4438084958,
+          "value": 1.0
+        },
+        {
+          "feature": "comp_prior_n_max",
+          "shap": -0.3496762526,
+          "value": 2.0
+        },
+        {
+          "feature": "log_budget",
+          "shap": -0.3388860181,
+          "value": 16.454567887579532
+        },
+        {
+          "feature": "comp_prior_logrev_max",
+          "shap": -0.3131240907,
+          "value": 16.21070815464102
+        },
+        {
+          "feature": "country_US",
+          "shap": -0.1318922822,
+          "value": 0.0
+        }
+      ],
+      "sum_other_features": -0.12964954209219526
+    }
+  },
+  "time_s": 3.638435125350952
+}

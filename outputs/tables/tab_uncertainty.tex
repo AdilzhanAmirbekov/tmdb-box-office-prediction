@@ -1,0 +1,22 @@
+\begin{table*}[!t]
+\centering
+\caption{Statistical comparison with the reference model (CatBoost), seed variability and selection/split sensitivity. $\Delta$ = metric of CatBoost minus metric of the other model on the same test films (negative = lower error for CatBoost), with paired bootstrap 95\% CI. $p_W$ = two-sided Wilcoxon signed-rank test on per-film absolute log errors; $p_{\mathrm{Holm}}$ = Holm-adjusted over the six comparisons (* = significant at $\alpha=0.05$). Seeds: mean $\pm$ SD of test log RMSE over seeds 42--46 at fixed hyperparameters. IPW: test metrics weighted by the inverse estimated probability that revenue is recorded (effective sample size 190 of 671). 70/30: models refitted with the same hyperparameters on the earliest 70\% of films and tested on the latest 30\% ($n=1006$).}
+\label{tab:uncertainty}
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}lcccccccccc@{}}
+\toprule
+ & \multicolumn{4}{c}{Paired comparison with CatBoost (80/20 test set)} & Seeds & \multicolumn{3}{c}{Selection sensitivity (log)} & \multicolumn{2}{c}{70/30 split (log)} \\
+\cmidrule(lr){2-5}\cmidrule(lr){6-6}\cmidrule(lr){7-9}\cmidrule(lr){10-11}
+Model & $\Delta$ log RMSE [95\% CI] & $\Delta$ log MAE [95\% CI] & $p_W$ & $p_{\mathrm{Holm}}$ & log RMSE & RMSE & IPW RMSE & IPW MAE & RMSE & MAE \\
+\midrule
+Naive median & $-$0.619 [$-$0.727, $-$0.505] & $-$0.517 [$-$0.607, $-$0.423] & $<$0.001 & $<$0.001* & -- & 2.026 & 2.838 & 2.058 & 2.138 & 1.571 \\
+Budget-only OLS & $-$0.101 [$-$0.171, $-$0.029] & $-$0.094 [$-$0.143, $-$0.042] & $<$0.001 & $<$0.001* & -- & 1.509 & 2.000 & 1.383 & 1.586 & 1.106 \\
+Linear Regression & $-$0.005 [$-$0.048, 0.040] & $-$0.036 [$-$0.071, 0.001] & 0.019 & 0.038* & -- & 1.413 & 1.755 & 1.211 & 1.473 & 1.030 \\
+Random Forest & $-$0.030 [$-$0.063, 0.003] & $-$0.024 [$-$0.050, 0.004] & 0.020 & 0.038* & 1.440 $\pm$ 0.002 & 1.437 & 1.837 & 1.250 & 1.439 & 0.980 \\
+XGBoost & $-$0.071 [$-$0.109, $-$0.035] & $-$0.048 [$-$0.077, $-$0.020] & 0.004 & 0.011* & 1.456 $\pm$ 0.014 & 1.478 & 1.887 & 1.257 & 1.446 & 0.984 \\
+LightGBM & $-$0.019 [$-$0.041, 0.004] & $-$0.025 [$-$0.044, $-$0.005] & $<$0.001 & 0.002* & 1.428 $\pm$ 0.003 & 1.426 & 1.771 & 1.227 & 1.434 & 0.975 \\
+CatBoost & \multicolumn{4}{c}{reference model} & 1.406 $\pm$ 0.003 & 1.407 & 1.769 & 1.219 & 1.415 & 0.954 \\
+\bottomrule
+\end{tabular}
+\end{table*}

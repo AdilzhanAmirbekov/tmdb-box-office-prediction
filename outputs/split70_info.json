@@ -1,0 +1,7 @@
+{
+  "n_dev": 2348,
+  "n_test": 1006,
+  "dev_end": "2009-12-18",
+  "test_start": "2009-12-21",
+  "best_tree_70": "CatBoost"
+}

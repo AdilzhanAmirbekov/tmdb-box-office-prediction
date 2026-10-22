@@ -1,0 +1,44 @@
+{
+  "retained": {
+    "n": 3354,
+    "share_budget_known": 0.9573643410852714,
+    "median_budget_usd_m": 25.0,
+    "median_release_year": 2005.0,
+    "share_released_2000_or_later": 0.7116875372689326,
+    "share_english": 0.9585569469290399,
+    "share_us_production": 0.8941562313655337,
+    "median_runtime": 107.0,
+    "share_director_history": 0.5524746571258199,
+    "genre_shares": {
+      "Drama": 0.4516994633273703,
+      "Comedy": 0.3470483005366726,
+      "Thriller": 0.28413834227787715,
+      "Action": 0.2787716159809183,
+      "Romance": 0.178592725104353,
+      "Adventure": 0.20065593321407274,
+      "Horror": 0.10166964818127609,
+      "Documentary": 0.013714967203339297
+    }
+  },
+  "excluded_revenue_zero": {
+    "n": 1426,
+    "share_budget_known": 0.3632538569424965,
+    "median_budget_usd_m": 9.15,
+    "median_release_year": 2006.0,
+    "share_released_2000_or_later": 0.7664796633941094,
+    "share_english": 0.8913043478260869,
+    "share_us_production": 0.6626928471248247,
+    "median_runtime": 98.0,
+    "share_director_history": 0.21248246844319774,
+    "genre_shares": {
+      "Drama": 0.5399719495091164,
+      "Comedy": 0.38429172510518933,
+      "Thriller": 0.2208976157082749,
+      "Action": 0.15007012622720897,
+      "Romance": 0.20336605890603085,
+      "Adventure": 0.08064516129032258,
+      "Horror": 0.12272089761570827,
+      "Documentary": 0.04417952314165498
+    }
+  }
+}

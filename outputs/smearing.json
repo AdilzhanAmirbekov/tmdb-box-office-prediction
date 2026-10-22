@@ -1,0 +1,13 @@
+{
+  "smearing_factor": {
+    "Naive median": 2.8138507951190053,
+    "Budget-only OLS": 1.966230785570448,
+    "Linear Regression": 2.76753347072679,
+    "Random Forest": 2.0120444159907445,
+    "XGBoost": 2.091322264550508,
+    "LightGBM": 2.040415341679328,
+    "CatBoost": 1.9038322527498024
+  },
+  "residuals_used": "out-of-fold log residuals from the 5 expanding-window validation folds of the development period (films not in the first training block)",
+  "n_oof_residuals": 2235
+}

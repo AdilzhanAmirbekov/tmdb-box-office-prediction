@@ -1,0 +1,46 @@
+{
+ "n_test_actual_above_10M": 567,
+ "share_within_factor_e_above_10M_CatBoost": 0.673721340388007,
+ "share_within_factor_e_above_10M_Linear Regression": 0.6507936507936508,
+ "shap_year_min": -0.7663074859,
+ "shap_year_max": -0.004953860101,
+ "shap_year_mean": -0.20058740118071686,
+ "shap_year_share_negative": 1.0,
+ "shap_budget_min": -1.842670789,
+ "shap_budget_max": 1.692769179,
+ "shap_budget_corr_value": 0.9713417346844317,
+ "shap_budget_mean_missing": -1.3245673114210523,
+ "shap_comp_logrev_min": -0.5687161526,
+ "shap_comp_logrev_max": 0.4514692519,
+ "shap_drama_mean_if_drama": -0.11049620759811449,
+ "shap_drama_mean_if_not": 0.0933744130729679,
+ "shap_weekday_mean_by_day_mon0": [
+  0.043269682893291674,
+  0.09835699158333336,
+  0.10941349380846155,
+  0.07565398547157143,
+  -0.07752173397422618,
+  -0.04494603299292856,
+  -0.04297891124285714
+ ],
+ "n_by_weekday_mon0": [
+  24,
+  45,
+  182,
+  210,
+  168,
+  28,
+  14
+ ],
+ "shap_castn_corr_value": -0.477313584532633,
+ "cast_prior_n_total_p90": 64.0,
+ "shap_castn_mean_above_p90": -0.3109125362026746,
+ "n_above_p90": 67,
+ "cv_fold_winner": [
+  "CatBoost",
+  "CatBoost",
+  "CatBoost",
+  "XGBoost",
+  "CatBoost"
+ ]
+}

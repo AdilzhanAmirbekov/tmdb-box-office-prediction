@@ -1,0 +1,26 @@
+\begin{table}[!t]
+\centering
+\caption{Test films with the largest CatBoost errors on the log scale. Revenue and budget in USD million; predicted revenue uses the smearing back-transform; error $=y^*-\hat y^*$; -- = budget not recorded.}
+\label{tab:worst}
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.44\columnwidth}rrrr@{}}
+\toprule
+Film (year) & Actual & Predicted & Budget & Error \\
+\midrule
+\multicolumn{5}{@{}l}{\emph{Largest under-predictions (actual $>$ predicted)}} \\
+The Imitation Game (2014) & 233.6 & 6.1 & 14.0 & 4.29 \\
+2016: Obama's America (2012) & 33.4 & 1.2 & 2.5 & 3.99 \\
+The Devil Inside (2012) & 101.8 & 4.6 & 1.0 & 3.74 \\
+Magic Mike (2012) & 167.2 & 8.2 & 7.0 & 3.66 \\
+The Prince (2014) & 266.6 & 13.5 & 18.0 & 3.62 \\
+\midrule
+\multicolumn{5}{@{}l}{\emph{Largest over-predictions (actual $<$ predicted)}} \\
+The Adventurer: The Curse of the Midas Box (2013) & 0.006 & 53.9 & 25.0 & $-$8.39 \\
+Maniac (2012) & 0.031 & 56.7 & 6.0 & $-$6.86 \\
+Eddie: The Sleepwalking Cannibal (2012) & 0.002 & 2.8 & -- & $-$6.82 \\
+Foodfight! (2012) & 0.074 & 110.0 & 65.0 & $-$6.66 \\
+Mi America (2015) & 0.003 & 3.6 & 2.1 & $-$6.33 \\
+\bottomrule
+\end{tabular}
+\end{table}

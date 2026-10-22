@@ -1,0 +1,15 @@
+{
+  "n_selection_sample": 3785,
+  "n_recorded": 2683,
+  "share_recorded_dev_period": 0.7088507265521796,
+  "n_test_period_all": 1017,
+  "share_recorded_test_period": 0.6597836774827925,
+  "auc_in_sample": 0.9064777692170845,
+  "auc_test_period": 0.92026825633383,
+  "p_recorded_test_min": 0.05,
+  "p_recorded_test_median": 0.9388064476607502,
+  "weight_min": 0.6141640700288391,
+  "weight_max": 12.283279124897955,
+  "effective_sample_size": 190.35686462657316,
+  "n_clipped_at_0.05": 6
+}

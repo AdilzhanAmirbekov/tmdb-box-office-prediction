@@ -1,0 +1,29 @@
+\begin{table}[!t]
+\centering
+\caption{Data actually used in the experiment. Revenue is worldwide nominal revenue; dev.\ = development set.}
+\label{tab:data}
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.50\columnwidth}>{\raggedright\arraybackslash}p{0.47\columnwidth}@{}}
+\toprule
+Item & Value \\
+\midrule
+Source & TMDB 5000 Movie Dataset \cite{tmdb5000dataset} \\
+Raw records & 4,803 films; credits joined on \texttt{id} \\
+Removed: no release date & 1 \\
+Removed: revenue $=0$ (not recorded) & 1,426 \\
+Removed: $0<$ revenue $<$ USD 1,000 (entry error) & 22 \\
+Modelling sample & 3,354 films released 1916-09-04 to 2016-09-09 \\
+Budget set to missing ($0$ or $<$ USD 1,000) & 143 (105 dev., 38 test) \\
+Development set (earliest 80\%) & 2,683 films, 1916-09-04 to 2011-11-22 \\
+Tuning CV (5 expanding folds) & train 448--2,236; valid. 447 each \\
+Test set (latest 20\%) & 671 films, 2011-11-25 to 2016-09-09 \\
+Revenue, dev.: median / mean (USD M) & 47.4 / 105.8 \\
+Revenue, test: median / mean (USD M) & 76.6 / 165.9 \\
+Revenue, test: min / max (USD M) & 0.002 / 1,519.6 \\
+$\log(1+y)$, dev. / test: mean (SD) & 17.40 (1.84) / 17.78 (2.02) \\
+Films below USD 1 M, dev. / test & 5.1\% / 4.9\% \\
+Predictors (one-hot / CatBoost) & 156 / 151 \\
+\bottomrule
+\end{tabular}
+\end{table}
