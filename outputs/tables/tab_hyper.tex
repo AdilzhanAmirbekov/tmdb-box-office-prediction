@@ -1,6 +1,6 @@
 \begin{table}[!t]
 \centering
-\caption{Randomized search spaces and selected hyperparameters (expanding-window CV on the development set, objective: log RMSE, seed 42). Ranges marked (log) were sampled log-uniformly; other ranges uniformly.}
+\caption{Randomised Search Spaces and Selected Hyperparameters}
 \label{tab:hyper}
 \scriptsize
 \setlength{\tabcolsep}{3pt}
@@ -43,4 +43,5 @@ Hyperparameter & Search space & Selected \\
 \quad \texttt{random\_strength} & 0.1--10 (log) & 2.67 \\
 \bottomrule
 \end{tabular}
+\par\vspace{2pt}{\footnotesize\raggedright Note: Selection by expanding-window CV on the development set, objective log RMSE, seed 42. Ranges marked (log) were sampled log-uniformly, other ranges uniformly. XGBoost and LightGBM share three sampled values (\texttt{n\_estimators}, \texttt{learning\_rate}, \texttt{colsample\_bytree}) because both searches used the same seed and the same distributions for these parameters.\par}
 \end{table}

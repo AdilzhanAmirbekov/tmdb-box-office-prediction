@@ -1,6 +1,6 @@
 \begin{table*}[!t]
 \centering
-\caption{Statistical comparison with the reference model (CatBoost), seed variability and selection/split sensitivity. $\Delta$ = metric of CatBoost minus metric of the other model on the same test films (negative = lower error for CatBoost), with paired bootstrap 95\% CI. $p_W$ = two-sided Wilcoxon signed-rank test on per-film absolute log errors; $p_{\mathrm{Holm}}$ = Holm-adjusted over the six comparisons (* = significant at $\alpha=0.05$). Seeds: mean $\pm$ SD of test log RMSE over seeds 42--46 at fixed hyperparameters. IPW: test metrics weighted by the inverse estimated probability that revenue is recorded (effective sample size 190 of 671). 70/30: models refitted with the same hyperparameters on the earliest 70\% of films and tested on the latest 30\% ($n=1006$).}
+\caption{Paired Comparison With CatBoost, Seed Variability and Selection and Split Sensitivity}
 \label{tab:uncertainty}
 \scriptsize
 \setlength{\tabcolsep}{3pt}
@@ -19,4 +19,5 @@ LightGBM & $-$0.019 [$-$0.041, 0.004] & $-$0.025 [$-$0.044, $-$0.005] & $<$0.001
 CatBoost & \multicolumn{4}{c}{reference model} & 1.406 $\pm$ 0.003 & 1.407 & 1.769 & 1.219 & 1.415 & 0.954 \\
 \bottomrule
 \end{tabular}
+\par\vspace{2pt}{\footnotesize\raggedright Note: $\Delta$: metric of CatBoost minus metric of the other model on the same test films (negative = lower error for CatBoost), with paired bootstrap 95\% CI. $p_W$: two-sided Wilcoxon signed-rank test on per-film absolute log errors; $p_{\mathrm{Holm}}$: Holm-adjusted over the six comparisons (* = $p_{\mathrm{Holm}}<0.05$). Seeds: mean $\pm$ SD of test log RMSE over seeds 42--46 at fixed hyperparameters. IPW: test metrics weighted by the inverse estimated probability that revenue is recorded (effective sample size 190 of 671); no intervals or tests were computed for them. 70/30: models refitted with the hyperparameters tuned on the 80\% development set, trained on the earliest 70\% of films and tested on the latest 30\% ($n=1,006$); 335 of these films were in the tuning data of the 80/20 analysis, so this split is a stability check rather than an independent test.\par}
 \end{table*}

@@ -1,6 +1,6 @@
 \begin{table}[!t]
 \centering
-\caption{Data actually used in the experiment. Revenue is worldwide nominal revenue; dev.\ = development set.}
+\caption{Data Actually Used in the Experiment}
 \label{tab:data}
 \footnotesize
 \setlength{\tabcolsep}{3pt}
@@ -20,10 +20,11 @@ Tuning CV (5 expanding folds) & train 448--2,236; valid. 447 each \\
 Test set (latest 20\%) & 671 films, 2011-11-25 to 2016-09-09 \\
 Revenue, dev.: median / mean (USD M) & 47.4 / 105.8 \\
 Revenue, test: median / mean (USD M) & 76.6 / 165.9 \\
-Revenue, test: min / max (USD M) & 0.002 / 1,519.6 \\
+Revenue, test: min / max & USD 1,632 / USD 1,519.6 M \\
 $\log(1+y)$, dev. / test: mean (SD) & 17.40 (1.84) / 17.78 (2.02) \\
 Films below USD 1 M, dev. / test & 5.1\% / 4.9\% \\
 Predictors (one-hot / CatBoost) & 156 / 151 \\
 \bottomrule
 \end{tabular}
+\par\vspace{2pt}{\footnotesize\raggedright Note: Revenue is worldwide nominal revenue in U.S. dollars; dev.\ = development set; M = million.\par}
 \end{table}

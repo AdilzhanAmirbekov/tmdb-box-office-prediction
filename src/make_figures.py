@@ -99,10 +99,10 @@ def fig_groups():
     order = ["Budget missing", "Q1", "Q2", "Q3", "Q4", "Q5"]
     labels = ["Miss.", "Q1", "Q2", "Q3", "Q4", "Q5"]
     xs = np.arange(len(order))
-    for k, (name, c, mk, dx) in enumerate(((BEST, BLUE, "o", -0.18), ("Linear Regression", VERM, "s", 0.0),
-                                            ("Naive median", GREY, "^", 0.18))):
+    for k, (name, c, mk, dx) in enumerate(((BEST, BLUE, "o", -0.25), ("Linear Regression", VERM, "s", 0.0),
+                                            ("Naive median", GREY, "^", 0.25))):
         sub = g[g.model == name].set_index("group").reindex(order)
-        ax.plot(xs + dx, sub.log_MAE, ls="none", marker=mk, ms=3.5, color=c, label=name)
+        ax.plot(xs + dx, sub.log_MAE, ls="none", marker=mk, ms=3.8, color=c, mec="white", mew=0.3, label=name)
     n = g[g.model == BEST].set_index("group").reindex(order).n.astype(int)
     ax.set_xticks(xs)
     ax.set_xticklabels([f"{l}\n{v}" for l, v in zip(labels, n)])
@@ -131,7 +131,7 @@ def fig_groups():
     usd_axis(ax, "x")
     ax.set_xlim(1e3, 5e9)
     ax.set_xlabel("(b) Actual revenue (USD, log scale)")
-    ax.set_ylabel("Residual $y^*-\\hat{y}^*$ (log)")
+    ax.set_ylabel("Residual (log USD)")
     ax.legend(loc="lower right", handletextpad=0.2, fontsize=6.5)
     fig.tight_layout(w_pad=1.2)
     save(fig, "fig_errors")

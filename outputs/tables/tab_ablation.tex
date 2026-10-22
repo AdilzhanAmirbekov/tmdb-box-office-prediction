@@ -1,6 +1,6 @@
 \begin{table}[!t]
 \centering
-\caption{Ablation and leakage check for CatBoost (fixed hyperparameters, same test films). RMSE and MAE are test log-scale errors; $\Delta$ = change in test log RMSE relative to the full feature set with paired bootstrap 95\% CI; $p$ = Holm-adjusted Wilcoxon signed-rank $p$ over the four ablations. The last row adds post-release variables that are excluded from the study and is shown only to quantify leakage. LR = Linear Regression log RMSE with the same feature set. $^{\ddagger}$Unadjusted.}
+\caption{Ablation and Leakage Check for CatBoost}
 \label{tab:ablation}
 \scriptsize
 \setlength{\tabcolsep}{2.2pt}
@@ -17,4 +17,5 @@ Without release timing & 1.392 & 0.957 & $-$0.015 [$-$0.047, 0.019] & 0.906 & 1.
 Plus post-release vars. & 1.154 & 0.768 & $-$0.253 [$-$0.318, $-$0.190] & $<$0.001$^{\ddagger}$ & 1.806 \\
 \bottomrule
 \end{tabular}
+\par\vspace{2pt}{\footnotesize\raggedright Note: Fixed hyperparameters, same 671 test films. RMSE and MAE: test log-scale errors. $\Delta$: change in test log RMSE relative to the full feature set with paired bootstrap 95\% CI; $p$: Holm-adjusted Wilcoxon signed-rank $p$ over the four ablations. The last row adds post-release variables that are excluded from the study and is shown only to quantify leakage. LR: Linear Regression log RMSE with the same feature set. $^{\ddagger}$Unadjusted.\par}
 \end{table}

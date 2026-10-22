@@ -9,6 +9,8 @@ from . import config as C
 OUT, TAB = C.OUT_DIR, C.TABLE_DIR
 S = pd.read_pickle(OUT / "state.pkl")
 BEST = S["BEST"]
+NAIVE_COLS = True
+TABSEP = 2.6
 ORDER = ["Naive median", "Budget-only OLS", "Linear Regression", "Random Forest", "XGBoost", "LightGBM", "CatBoost"]
 
 
@@ -39,6 +41,10 @@ def ci(lo, hi, d=3):
     return f"[{f(lo, d)}, {f(hi, d)}]"
 
 
+def note(text):
+    return "\\par\\vspace{2pt}{\\footnotesize\\raggedright Note: " + text + "\\par}"
+
+
 def write(name, body):
     (TAB / name).write_text(body)
 
@@ -64,7 +70,7 @@ def table_data():
         ("Test set (latest 20\\%)", f"{d['n_test']:,} films, {d['test_date_min']} to {d['test_date_max']}"),
         ("Revenue, dev.: median / mean (USD M)", f"{f(td['usd_median'],1)} / {f(td['usd_mean'],1)}"),
         ("Revenue, test: median / mean (USD M)", f"{f(tt['usd_median'],1)} / {f(tt['usd_mean'],1)}"),
-        ("Revenue, test: min / max (USD M)", f"{f(tt['usd_min'],3)} / {f(tt['usd_max'],1)}"),
+        ("Revenue, test: min / max", f"USD {tt['usd_min']*1e6:,.0f} / USD {f(tt['usd_max'],1)} M"),
         ("$\\log(1+y)$, dev. / test: mean (SD)", f"{f(td['log_mean'],2)} ({f(td['log_sd'],2)}) / {f(tt['log_mean'],2)} ({f(tt['log_sd'],2)})"),
         ("Films below USD 1 M, dev. / test", f"{100*td['share_below_1M']:.1f}\\% / {100*tt['share_below_1M']:.1f}\\%"),
         ("Predictors (one-hot / CatBoost)", f"{d['n_features_tree']} / {d['n_features_catboost']}"),
@@ -72,7 +78,7 @@ def table_data():
     body = "\n".join(f"{a} & {b} \\\\" for a, b in rows)
     write("tab_data.tex", rf"""\begin{{table}}[!t]
 \centering
-\caption{{Data actually used in the experiment. Revenue is worldwide nominal revenue; dev.\ = development set.}}
+\caption{{Data Actually Used in the Experiment}}
 \label{{tab:data}}
 \footnotesize
 \setlength{{\tabcolsep}}{{3pt}}
@@ -83,6 +89,7 @@ Item & Value \\
 {body}
 \bottomrule
 \end{{tabular}}
+{note("Revenue is worldwide nominal revenue in U.S. dollars; dev.\\ = development set; M = million.")}
 \end{{table}}
 """)
 
@@ -96,34 +103,42 @@ def table_main():
         top = [nm, f"{f(r.cv_mean)} $\\pm$ {f(r.cv_std)}",
                f(r.log_MAE), f(r.log_RMSE), f(r.log_R2),
                f(r.usd_MAE_smear, 1), f(r.usd_RMSE_smear, 1), f(r.usd_R2_smear), f(r.usd_MedAE_smear, 1),
-               f(r.smear, 2), f(r.usd_MAE_naive, 1), f(r.usd_RMSE_naive, 1), f(r.usd_R2_naive)]
+               f(r.smear, 2)] + ([f(r.usd_MAE_naive, 1), f(r.usd_R2_naive)] if NAIVE_COLS else [])
         bot = ["", "", ci(r.log_MAE_lo, r.log_MAE_hi), ci(r.log_RMSE_lo, r.log_RMSE_hi), ci(r.log_R2_lo, r.log_R2_hi),
                ci(r.usd_MAE_smear_lo, r.usd_MAE_smear_hi, 1), ci(r.usd_RMSE_smear_lo, r.usd_RMSE_smear_hi, 1),
                ci(r.usd_R2_smear_lo, r.usd_R2_smear_hi), ci(r.usd_MedAE_smear_lo, r.usd_MedAE_smear_hi, 1),
-               "", ci(r.usd_MAE_naive_lo, r.usd_MAE_naive_hi, 1), ci(r.usd_RMSE_naive_lo, r.usd_RMSE_naive_hi, 1),
-               ci(r.usd_R2_naive_lo, r.usd_R2_naive_hi)]
+               ""] + (["", ""] if NAIVE_COLS else [])
         lines.append(" & ".join(top) + r" \\")
-        lines.append(" & ".join(r"{\tiny " + b + "}" if b else "" for b in bot) + r" \\[1pt]")
+        lines.append(" & ".join(b for b in bot) + r" \\[2pt]")
         if name in ("Linear Regression",):
             lines.append(r"\midrule")
     body = "\n".join(lines)
+    d = J('data_summary.json')
+    ncol = 10 + (2 if NAIVE_COLS else 0)
+    naive_head = r" & \multicolumn{2}{c}{Naive $e^{\hat y^*}-1$}" if NAIVE_COLS else ""
+    naive_rule = r"\cmidrule(lr){11-12}" if NAIVE_COLS else ""
+    naive_cols = r" & MAE & $R^2$" if NAIVE_COLS else ""
+    naive_note = (" Naive: dollar MAE and $R^2$ with the back-transformation $e^{\\hat y^*}-1$ (no smearing)."
+                  if NAIVE_COLS else
+                  " Dollar metrics for the naive back-transformation $e^{\\hat y^*}-1$ are given in the text and in the repository.")
     write("tab_main.tex", rf"""\begin{{table*}}[!t]
 \centering
-\caption{{Test-set performance of all models on the same {len(S['test_idx'])} chronologically held-out films (released {J('data_summary.json')['test_date_min']} to {J('data_summary.json')['test_date_max']}). Log-scale metrics refer to $y^*=\log(1+y)$ and are the primary ranking criterion; dollar metrics are in USD million. Values in brackets are 95\% percentile bootstrap confidence intervals ($B={C.BOOTSTRAP_B}$, resampling test films). CV = mean $\pm$ standard deviation of log RMSE over the five expanding-window validation folds of the development set. $S$ = Duan smearing factor estimated from out-of-fold development residuals. $^{{\dagger}}$Lowest test log RMSE among the tree-based ensembles.}}
+\caption{{Test-Set Performance of All Models on the Same {len(S['test_idx'])} Chronologically Held-Out Films}}
 \label{{tab:main}}
 \scriptsize
-\setlength{{\tabcolsep}}{{2.6pt}}
-\begin{{tabular}}{{@{{}}lcccccccccccc@{{}}}}
+\setlength{{\tabcolsep}}{{{TABSEP}pt}}
+\begin{{tabular}}{{@{{}}l{'c' * (ncol - 1)}@{{}}}}
 \toprule
- & & \multicolumn{{3}}{{c}}{{Test, log scale}} & \multicolumn{{4}}{{c}}{{Test, USD M, smearing back-transform}} & & \multicolumn{{3}}{{c}}{{Test, USD M, naive $e^{{\hat y^*}}-1$}} \\
-\cmidrule(lr){{3-5}}\cmidrule(lr){{6-9}}\cmidrule(lr){{11-13}}
-Model & CV log RMSE & MAE & RMSE & $R^2$ & MAE & RMSE & $R^2$ & MedAE & $S$ & MAE & RMSE & $R^2$ \\
+ & & \multicolumn{{3}}{{c}}{{Log scale}} & \multicolumn{{4}}{{c}}{{USD million, smearing back-transform}} & {naive_head} \\
+\cmidrule(lr){{3-5}}\cmidrule(lr){{6-9}}{naive_rule}
+Model & CV log RMSE & MAE & RMSE & $R^2$ & MAE & RMSE & $R^2$ & MedAE & $S${naive_cols} \\
 \midrule
-{body}
+{{body}}
 \bottomrule
 \end{{tabular}}
+{note(f"Test films released {d['test_date_min']} to {d['test_date_max']}. Log-scale metrics refer to $y^*=\\log(1+y)$; test log RMSE is the primary ranking criterion. Brackets: 95\\% percentile bootstrap confidence intervals ($B={C.BOOTSTRAP_B}$, resampling test films). CV: mean $\\pm$ standard deviation of log RMSE over the five expanding-window validation folds of the development set. MedAE: median absolute error. $S$: Duan smearing factor from out-of-fold development residuals." + naive_note + " $^{\\dagger}$Lowest test log RMSE among the tree-based ensembles.")}
 \end{{table*}}
-""")
+""".replace("{body}", body))
 
 
 # ------------------------------------------------------------------ Table: tests, seeds, robustness
@@ -148,9 +163,10 @@ def table_uncertainty():
                                                 f(s.log_RMSE), f(s.log_MAE)]) + r" \\")
     info = J("ipw_info.json")
     i70 = J("split70_info.json")
+    overlap = i70["n_test"] - len(S["test_idx"])  # 70/30 test films that were in the 80/20 development (tuning) data
     write("tab_uncertainty.tex", rf"""\begin{{table*}}[!t]
 \centering
-\caption{{Statistical comparison with the reference model ({BEST}), seed variability and selection/split sensitivity. $\Delta$ = metric of {BEST} minus metric of the other model on the same test films (negative = lower error for {BEST}), with paired bootstrap 95\% CI. $p_W$ = two-sided Wilcoxon signed-rank test on per-film absolute log errors; $p_{{\mathrm{{Holm}}}}$ = Holm-adjusted over the six comparisons (* = significant at $\alpha=0.05$). Seeds: mean $\pm$ SD of test log RMSE over seeds 42--46 at fixed hyperparameters. IPW: test metrics weighted by the inverse estimated probability that revenue is recorded (effective sample size {info['effective_sample_size']:.0f} of {len(S['test_idx'])}). 70/30: models refitted with the same hyperparameters on the earliest 70\% of films and tested on the latest 30\% ($n={i70['n_test']}$).}}
+\caption{{Paired Comparison With {BEST}, Seed Variability and Selection and Split Sensitivity}}
 \label{{tab:uncertainty}}
 \scriptsize
 \setlength{{\tabcolsep}}{{3pt}}
@@ -163,6 +179,7 @@ Model & $\Delta$ log RMSE [95\% CI] & $\Delta$ log MAE [95\% CI] & $p_W$ & $p_{{
 {chr(10).join(lines)}
 \bottomrule
 \end{{tabular}}
+{note(f"$\\Delta$: metric of {BEST} minus metric of the other model on the same test films (negative = lower error for {BEST}), with paired bootstrap 95\\% CI. $p_W$: two-sided Wilcoxon signed-rank test on per-film absolute log errors; $p_{{\\mathrm{{Holm}}}}$: Holm-adjusted over the six comparisons (* = $p_{{\\mathrm{{Holm}}}}<0.05$). Seeds: mean $\\pm$ SD of test log RMSE over seeds 42--46 at fixed hyperparameters. IPW: test metrics weighted by the inverse estimated probability that revenue is recorded (effective sample size {info['effective_sample_size']:.0f} of {len(S['test_idx'])}); no intervals or tests were computed for them. 70/30: models refitted with the hyperparameters tuned on the 80\\% development set, trained on the earliest 70\\% of films and tested on the latest 30\\% ($n={i70['n_test']:,}$); {overlap} of these films were in the tuning data of the 80/20 analysis, so this split is a stability check rather than an independent test.")}
 \end{{table*}}
 """)
 
@@ -194,7 +211,7 @@ def table_ablation():
             lines.append(r"\midrule")
     write("tab_ablation.tex", rf"""\begin{{table}}[!t]
 \centering
-\caption{{Ablation and leakage check for {BEST} (fixed hyperparameters, same test films). RMSE and MAE are test log-scale errors; $\Delta$ = change in test log RMSE relative to the full feature set with paired bootstrap 95\% CI; $p$ = Holm-adjusted Wilcoxon signed-rank $p$ over the four ablations. The last row adds post-release variables that are excluded from the study and is shown only to quantify leakage. LR = Linear Regression log RMSE with the same feature set. $^{{\ddagger}}$Unadjusted.}}
+\caption{{Ablation and Leakage Check for {BEST}}}
 \label{{tab:ablation}}
 \scriptsize
 \setlength{{\tabcolsep}}{{2.2pt}}
@@ -205,6 +222,7 @@ Feature set & RMSE & MAE & $\Delta$ RMSE [95\% CI] & $p$ & LR \\
 {chr(10).join(lines)}
 \bottomrule
 \end{{tabular}}
+{note(f"Fixed hyperparameters, same 671 test films. RMSE and MAE: test log-scale errors. $\\Delta$: change in test log RMSE relative to the full feature set with paired bootstrap 95\\% CI; $p$: Holm-adjusted Wilcoxon signed-rank $p$ over the four ablations. The last row adds post-release variables that are excluded from the study and is shown only to quantify leakage. LR: Linear Regression log RMSE with the same feature set. $^{{\\ddagger}}$Unadjusted.")}
 \end{{table}}
 """)
 
@@ -215,7 +233,7 @@ def table_worst(k=5):
     o = pd.read_csv(OUT / "worst_over.csv").head(k)
     lines = [r"\multicolumn{5}{@{}l}{\emph{Largest under-predictions (actual $>$ predicted)}} \\"]
     for _, r in u.iterrows():
-        lines.append(f"{esc(r.title)} ({str(r.date)[:4]}) & {f(r.actual_usd_m, 1)} & {f(r.pred_usd_m, 1)} & "
+        lines.append(f"{esc(r.title)} ({str(r.date)[:4]}) & {f(r.actual_usd_m, 3)} & {f(r.pred_usd_m, 1)} & "
                      f"{f(r.budget_usd_m, 1)} & {f(r.log_error, 2)} \\\\")
     lines.append(r"\midrule")
     lines.append(r"\multicolumn{5}{@{}l}{\emph{Largest over-predictions (actual $<$ predicted)}} \\")
@@ -224,7 +242,7 @@ def table_worst(k=5):
                      f"{f(r.budget_usd_m, 1)} & {f(r.log_error, 2)} \\\\")
     write("tab_worst.tex", rf"""\begin{{table}}[!t]
 \centering
-\caption{{Test films with the largest {BEST} errors on the log scale. Revenue and budget in USD million; predicted revenue uses the smearing back-transform; error $=y^*-\hat y^*$; -- = budget not recorded.}}
+\caption{{Test Films With the Largest {BEST} Errors on the Log Scale}}
 \label{{tab:worst}}
 \scriptsize
 \setlength{{\tabcolsep}}{{3pt}}
@@ -235,6 +253,7 @@ Film (year) & Actual & Predicted & Budget & Error \\
 {chr(10).join(lines)}
 \bottomrule
 \end{{tabular}}
+{note("Actual revenue, predicted revenue and budget in USD million; predicted revenue uses the smearing back-transform; error $=y^*-\\hat y^*$; -- = budget not recorded.")}
 \end{{table}}
 """)
 
@@ -272,7 +291,7 @@ def table_hyper():
             lines.append(f"\\quad \\texttt{{{lab}}} & {rng} & {vs} \\\\")
     write("tab_hyper.tex", rf"""\begin{{table}}[!t]
 \centering
-\caption{{Randomized search spaces and selected hyperparameters (expanding-window CV on the development set, objective: log RMSE, seed {C.SEED}). Ranges marked (log) were sampled log-uniformly; other ranges uniformly.}}
+\caption{{Randomised Search Spaces and Selected Hyperparameters}}
 \label{{tab:hyper}}
 \scriptsize
 \setlength{{\tabcolsep}}{{3pt}}
@@ -283,6 +302,7 @@ Hyperparameter & Search space & Selected \\
 {chr(10).join(lines)}
 \bottomrule
 \end{{tabular}}
+{note(f"Selection by expanding-window CV on the development set, objective log RMSE, seed {C.SEED}. Ranges marked (log) were sampled log-uniformly, other ranges uniformly. XGBoost and LightGBM share three sampled values (\\texttt{{n\\_estimators}}, \\texttt{{learning\\_rate}}, \\texttt{{colsample\\_bytree}}) because both searches used the same seed and the same distributions for these parameters.")}
 \end{{table}}
 """)
 

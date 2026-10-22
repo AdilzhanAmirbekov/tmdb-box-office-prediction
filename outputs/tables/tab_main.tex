@@ -1,30 +1,31 @@
 \begin{table*}[!t]
 \centering
-\caption{Test-set performance of all models on the same 671 chronologically held-out films (released 2011-11-25 to 2016-09-09). Log-scale metrics refer to $y^*=\log(1+y)$ and are the primary ranking criterion; dollar metrics are in USD million. Values in brackets are 95\% percentile bootstrap confidence intervals ($B=2000$, resampling test films). CV = mean $\pm$ standard deviation of log RMSE over the five expanding-window validation folds of the development set. $S$ = Duan smearing factor estimated from out-of-fold development residuals. $^{\dagger}$Lowest test log RMSE among the tree-based ensembles.}
+\caption{Test-Set Performance of All Models on the Same 671 Chronologically Held-Out Films}
 \label{tab:main}
 \scriptsize
 \setlength{\tabcolsep}{2.6pt}
-\begin{tabular}{@{}lcccccccccccc@{}}
+\begin{tabular}{@{}lccccccccccc@{}}
 \toprule
- & & \multicolumn{3}{c}{Test, log scale} & \multicolumn{4}{c}{Test, USD M, smearing back-transform} & & \multicolumn{3}{c}{Test, USD M, naive $e^{\hat y^*}-1$} \\
-\cmidrule(lr){3-5}\cmidrule(lr){6-9}\cmidrule(lr){11-13}
-Model & CV log RMSE & MAE & RMSE & $R^2$ & MAE & RMSE & $R^2$ & MedAE & $S$ & MAE & RMSE & $R^2$ \\
+ & & \multicolumn{3}{c}{Log scale} & \multicolumn{4}{c}{USD million, smearing back-transform} &  & \multicolumn{2}{c}{Naive $e^{\hat y^*}-1$} \\
+\cmidrule(lr){3-5}\cmidrule(lr){6-9}\cmidrule(lr){11-12}
+Model & CV log RMSE & MAE & RMSE & $R^2$ & MAE & RMSE & $R^2$ & MedAE & $S$ & MAE & $R^2$ \\
 \midrule
-Naive median & 1.890 $\pm$ 0.259 & 1.492 & 2.026 & $-$0.003 & 148.7 & 243.9 & $-$0.018 & 102.8 & 2.81 & 141.5 & 269.2 & $-$0.240 \\
- &  & {\tiny [1.390, 1.599]} & {\tiny [1.851, 2.208]} & {\tiny [$-$0.018, 0.000]} & {\tiny [134.2, 162.8]} & {\tiny [211.2, 273.7]} & {\tiny [$-$0.037, $-$0.004]} & {\tiny [98.0, 109.3]} &  & {\tiny [123.8, 158.5]} & {\tiny [234.1, 300.8]} & {\tiny [$-$0.283, $-$0.202]} \\[1pt]
-Budget-only OLS & 1.482 $\pm$ 0.166 & 1.069 & 1.509 & 0.444 & 91.6 & 167.4 & 0.520 & 48.2 & 1.97 & 108.8 & 217.6 & 0.190 \\
- &  & {\tiny [0.992, 1.152]} & {\tiny [1.353, 1.681]} & {\tiny [0.386, 0.501]} & {\tiny [81.3, 102.4]} & {\tiny [141.9, 191.8]} & {\tiny [0.472, 0.573]} & {\tiny [44.0, 53.8]} &  & {\tiny [94.3, 122.6]} & {\tiny [186.2, 246.5]} & {\tiny [0.150, 0.234]} \\[1pt]
-Linear Regression & 1.589 $\pm$ 0.184 & 1.010 & 1.413 & 0.512 & 165.2 & 332.9 & $-$0.897 & 64.1 & 2.77 & 96.7 & 195.6 & 0.345 \\
- &  & {\tiny [0.939, 1.085]} & {\tiny [1.270, 1.567]} & {\tiny [0.448, 0.571]} & {\tiny [144.2, 188.1]} & {\tiny [264.7, 401.3]} & {\tiny [$-$1.963, $-$0.193]} & {\tiny [56.3, 74.3]} &  & {\tiny [84.0, 109.8]} & {\tiny [165.2, 225.5]} & {\tiny [0.235, 0.453]} \\[1pt]
+Naive median & 1.890 $\pm$ 0.259 & 1.492 & 2.026 & $-$0.003 & 148.7 & 243.9 & $-$0.018 & 102.8 & 2.81 & 141.5 & $-$0.240 \\
+ &  & [1.390, 1.599] & [1.851, 2.208] & [$-$0.018, 0.000] & [134.2, 162.8] & [211.2, 273.7] & [$-$0.037, $-$0.004] & [98.0, 109.3] &  &  &  \\[2pt]
+Budget-only OLS & 1.482 $\pm$ 0.166 & 1.069 & 1.509 & 0.444 & 91.6 & 167.4 & 0.520 & 48.2 & 1.97 & 108.8 & 0.190 \\
+ &  & [0.992, 1.152] & [1.353, 1.681] & [0.386, 0.501] & [81.3, 102.4] & [141.9, 191.8] & [0.472, 0.573] & [44.0, 53.8] &  &  &  \\[2pt]
+Linear Regression & 1.589 $\pm$ 0.184 & 1.010 & 1.413 & 0.512 & 165.2 & 332.9 & $-$0.897 & 64.1 & 2.77 & 96.7 & 0.345 \\
+ &  & [0.939, 1.085] & [1.270, 1.567] & [0.448, 0.571] & [144.2, 188.1] & [264.7, 401.3] & [$-$1.963, $-$0.193] & [56.3, 74.3] &  &  &  \\[2pt]
 \midrule
-Random Forest & 1.361 $\pm$ 0.148 & 0.999 & 1.437 & 0.495 & 108.8 & 189.9 & 0.383 & 46.4 & 2.01 & 84.7 & 161.7 & 0.552 \\
- &  & {\tiny [0.924, 1.078]} & {\tiny [1.292, 1.583]} & {\tiny [0.419, 0.560]} & {\tiny [97.6, 120.6]} & {\tiny [169.4, 210.7]} & {\tiny [0.172, 0.524]} & {\tiny [41.4, 54.8]} &  & {\tiny [74.4, 95.4]} & {\tiny [137.7, 185.3]} & {\tiny [0.490, 0.616]} \\[1pt]
-XGBoost & 1.360 $\pm$ 0.147 & 1.023 & 1.478 & 0.466 & 116.4 & 202.8 & 0.296 & 50.1 & 2.09 & 86.2 & 163.8 & 0.541 \\
- &  & {\tiny [0.947, 1.104]} & {\tiny [1.331, 1.629]} & {\tiny [0.384, 0.538]} & {\tiny [104.2, 128.8]} & {\tiny [181.8, 223.0]} & {\tiny [0.062, 0.459]} & {\tiny [44.0, 58.1]} &  & {\tiny [75.8, 97.0]} & {\tiny [139.5, 187.9]} & {\tiny [0.479, 0.603]} \\[1pt]
-LightGBM & 1.361 $\pm$ 0.147 & 1.000 & 1.426 & 0.503 & 111.4 & 191.6 & 0.372 & 46.1 & 2.04 & 87.6 & 168.0 & 0.517 \\
- &  & {\tiny [0.926, 1.078]} & {\tiny [1.284, 1.572]} & {\tiny [0.429, 0.565]} & {\tiny [99.6, 123.3]} & {\tiny [172.6, 209.9]} & {\tiny [0.170, 0.513]} & {\tiny [41.1, 54.7]} &  & {\tiny [76.6, 98.6]} & {\tiny [143.7, 191.2]} & {\tiny [0.461, 0.575]} \\[1pt]
-CatBoost$^{\dagger}$ & 1.343 $\pm$ 0.144 & 0.975 & 1.407 & 0.516 & 108.7 & 186.6 & 0.404 & 48.3 & 1.90 & 86.2 & 168.0 & 0.517 \\
- &  & {\tiny [0.901, 1.050]} & {\tiny [1.265, 1.554]} & {\tiny [0.447, 0.578]} & {\tiny [97.5, 120.3]} & {\tiny [168.0, 204.6]} & {\tiny [0.222, 0.529]} & {\tiny [40.9, 54.4]} &  & {\tiny [75.4, 97.4]} & {\tiny [142.3, 192.1]} & {\tiny [0.460, 0.577]} \\[1pt]
+Random Forest & 1.361 $\pm$ 0.148 & 0.999 & 1.437 & 0.495 & 108.8 & 189.9 & 0.383 & 46.4 & 2.01 & 84.7 & 0.552 \\
+ &  & [0.924, 1.078] & [1.292, 1.583] & [0.419, 0.560] & [97.6, 120.6] & [169.4, 210.7] & [0.172, 0.524] & [41.4, 54.8] &  &  &  \\[2pt]
+XGBoost & 1.360 $\pm$ 0.147 & 1.023 & 1.478 & 0.466 & 116.4 & 202.8 & 0.296 & 50.1 & 2.09 & 86.2 & 0.541 \\
+ &  & [0.947, 1.104] & [1.331, 1.629] & [0.384, 0.538] & [104.2, 128.8] & [181.8, 223.0] & [0.062, 0.459] & [44.0, 58.1] &  &  &  \\[2pt]
+LightGBM & 1.361 $\pm$ 0.147 & 1.000 & 1.426 & 0.503 & 111.4 & 191.6 & 0.372 & 46.1 & 2.04 & 87.6 & 0.517 \\
+ &  & [0.926, 1.078] & [1.284, 1.572] & [0.429, 0.565] & [99.6, 123.3] & [172.6, 209.9] & [0.170, 0.513] & [41.1, 54.7] &  &  &  \\[2pt]
+CatBoost$^{\dagger}$ & 1.343 $\pm$ 0.144 & 0.975 & 1.407 & 0.516 & 108.7 & 186.6 & 0.404 & 48.3 & 1.90 & 86.2 & 0.517 \\
+ &  & [0.901, 1.050] & [1.265, 1.554] & [0.447, 0.578] & [97.5, 120.3] & [168.0, 204.6] & [0.222, 0.529] & [40.9, 54.4] &  &  &  \\[2pt]
 \bottomrule
 \end{tabular}
+\par\vspace{2pt}{\footnotesize\raggedright Note: Test films released 2011-11-25 to 2016-09-09. Log-scale metrics refer to $y^*=\log(1+y)$; test log RMSE is the primary ranking criterion. Brackets: 95\% percentile bootstrap confidence intervals ($B=2000$, resampling test films). CV: mean $\pm$ standard deviation of log RMSE over the five expanding-window validation folds of the development set. MedAE: median absolute error. $S$: Duan smearing factor from out-of-fold development residuals. Naive: dollar MAE and $R^2$ with the back-transformation $e^{\hat y^*}-1$ (no smearing). $^{\dagger}$Lowest test log RMSE among the tree-based ensembles.\par}
 \end{table*}
